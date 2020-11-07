@@ -16,9 +16,9 @@ COPY scripts/ /usr/local/bin/
 
 RUN set -x \
     && addgroup -g 1000 ${GROUP} \
-    && adduser -G ${GROUP} -u 1000 ${USER} 
+    && adduser -G ${GROUP} -u 1000 -S ${USER} 
 
-RUN set -x & \
+RUN set -x  \
     && sed -i 's/^#//g' /etc/apk/repositories \
     && apk update \
     && mkdir /work \
