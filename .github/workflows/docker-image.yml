@@ -1,0 +1,22 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: |
+        cd ../build
+        echo "${{ secrets.DOCKERPW }}" | docker login -u "jrpamid" --password-stdin
+        docker image build -t jrpamid/kubeutils:v0.0.1 .
+        docker push jrpamid/kubeutils:v0.0.1
