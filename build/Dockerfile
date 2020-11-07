@@ -1,3 +1,4 @@
+# default versions.
 ARG ALPINE_VER=3.12
 ARG FLUXCTL_VER=1.21.0
 ARG HELMFILE_VER=0.132.2
@@ -11,7 +12,7 @@ ENV HELM_REPO_URL \
     USER=kubetools \
     GROUP=cicd
 
-COPY scripts/ /usr/loca/bin/
+COPY scripts/ /usr/local/bin/
 
 RUN set -x \
     && addgroup -g 1000 ${GROUP} \
@@ -23,6 +24,7 @@ RUN set -x & \
     && mkdir /work \
     && chmod 775 /work \
     && chown ${USER}:${GROUP} /work \
+    && chmod 775 -R /usr/local/bin/ \
     && apk add --no-cache --virtual .build-deps \
         bash \
         podman \
@@ -35,6 +37,7 @@ RUN set -x & \
         apache2-utils \
         tree \
         unzip \
+        skopeo \
     && wget https://github.com/fluxcd/flux/releases/download/${FLUXCTL_VER}/fluxctl_linux_amd64 \
     && mv fluxctl_linux_amd64 /usr/local/bin/fluxctl \
     && chmod a+x /usr/local/bin/fluxctl \
@@ -51,6 +54,6 @@ LABEL AUTHOR=jrpamid.cloudops@gmail.com \
 
 USER kubetools
 
-ENTRYPOINT ["/usr/local/bin/setup_helm.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 CMD ["/bin/bash"]

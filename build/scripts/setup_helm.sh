@@ -1,6 +1,8 @@
 #!/usr/bin/bash
 
-echo "Initializing helm"
-kubectl version
-helmfile  version
-fluxctl version
+source helper_functions.sh
+log 'In -> setup_helm.sh'
+
+log 'Exit -> setup_helm.sh'
+
+
