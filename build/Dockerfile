@@ -9,9 +9,9 @@ ARG HELMFILE_VER
 
 ENV HELM_REPO_URL \
     USER=kubetools \
-    GROUP=toolbox 
+    GROUP=cicd
 
-COPY setup.sh /usr/loca/bin/setup.sh 
+COPY scripts/ /usr/loca/bin/
 
 RUN set -x \
     && addgroup -g 1000 ${GROUP} \
@@ -40,7 +40,7 @@ RUN set -x & \
     && chmod a+x /usr/local/bin/fluxctl \
     && wget https://github.com/roboll/helmfile/releases/download/v${HELMFILE_VER}/helmfile_linux_amd64 \
     && mv helmfile_linux_amd64 /usr/local/bin/helmfile \
-    && chmod  a+x /usr/lcoal/bin/helmfile 
+    && chmod  a+x /usr/local/bin/helmfile 
 
 WORKDIR /work 
 
@@ -51,6 +51,6 @@ LABEL AUTHOR=jrpamid.cloudops@gmail.com \
 
 USER kubetools
 
-ENTRYPOINT ["/usr/local/bin/setup.sh"]
+ENTRYPOINT ["/usr/local/bin/setup_helm.sh"]
 
 CMD ["/bin/bash"]
