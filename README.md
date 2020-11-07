@@ -1,7 +1,6 @@
 # Kube-utils 
 
-Utilities for building a container image from docker files, and cli tools for deploying in k8s.
-Alpine  Base to keep the image size small.
+Alpine based comtainer imahe with utilities/tools for building a container image from docker files, and cli tools for deploying in k8s.
 
 1. podman -> Replacement for Docker daemon/cli for building container images, running/managing them. 
 2. fluxctl -> Managing Kubernetes Conitinous deployments. GitOps style..(https://docs.fluxcd.io/projects/helm-operator/en/stable/)
