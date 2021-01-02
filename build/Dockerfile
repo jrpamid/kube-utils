@@ -24,6 +24,9 @@ RUN set -x \
 RUN set -x  \
     && cat /etc/apk/repositories \
     && sed -i 's/^#//g' /etc/apk/repositories \
+    && echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+    && echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+    && echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
     && apk update \
     && mkdir /work \
     && chmod 775 /work \
@@ -39,9 +42,9 @@ RUN set -x  \
         apache2-utils \
         tree \
         unzip \
-    && apk add skopeo --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    && apk add buildah --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    && apk add podman --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+        buildah \
+        skopeo \
+        podman \
     && wget https://github.com/fluxcd/flux/releases/download/${FLUXCTL_VER}/fluxctl_linux_amd64 \
     && mv fluxctl_linux_amd64 /usr/local/bin/fluxctl \
     && chmod a+x /usr/local/bin/fluxctl \
