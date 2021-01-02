@@ -24,6 +24,7 @@ RUN set -x \
 RUN set -x  \
     && cat /etc/apk/repositories \
     && sed -i 's/^#//g' /etc/apk/repositories \
+    && apk add edgerepo --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main \
     && apk update \
     && mkdir /work \
     && chmod 775 /work \
