@@ -22,6 +22,7 @@ RUN set -x \
     && echo "${USER} ALL=NOPASSWD: ALL" >> /etc/sudoers 
 
 RUN set -x  \
+    && cat /etc/apk/repositories \
     && sed -i 's/^#//g' /etc/apk/repositories \
     && apk update \
     && mkdir /work \
