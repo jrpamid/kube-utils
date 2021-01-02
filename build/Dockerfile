@@ -8,7 +8,7 @@ FROM docker.io/library/alpine:${ALPINE_VER}
 ARG FLUXCTL_VER
 ARG HELMFILE_VER
 
-ENV HELM_REPO_URL \
+ENV HELM_REPO_URL="https://charts.bitnami.com/bitnami" \
     USER=kubetools \
     GROUP=cicd \
     HELM_DIFF_PLUGIN="https://github.com/databus23/helm-diff" \

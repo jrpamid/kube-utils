@@ -2,7 +2,7 @@ name: kubeutils on Alpine
 
 on:
   push:
-    branches: [ master ]
+    branches: [ develop ]
   pull_request:
     branches: [ master ]
 
