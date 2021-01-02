@@ -1,8 +1,8 @@
-name: Docker Image CI
+name: kubeutils on Alpine
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 

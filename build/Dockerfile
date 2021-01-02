@@ -10,13 +10,16 @@ ARG HELMFILE_VER
 
 ENV HELM_REPO_URL \
     USER=kubetools \
-    GROUP=cicd
+    GROUP=cicd \
+    HELM_DIFF_PLUGIN="https://github.com/databus23/helm-diff" \
+    HELM_SECRETS_PLUGIN="https://github.com/jkroepke/helm-secrets"
 
 COPY scripts/ /usr/local/bin/
 
 RUN set -x \
     && addgroup -g 1000 ${GROUP} \
-    && adduser -G ${GROUP} -u 1000 -S ${USER} 
+    && adduser -G ${GROUP} -u 1000 -S ${USER} \
+    && echo "${USER} ALL=NOPASSWD: ALL" >> /etc/sudoers 
 
 RUN set -x  \
     && sed -i 's/^#//g' /etc/apk/repositories \
@@ -44,6 +47,10 @@ RUN set -x  \
     && wget https://github.com/roboll/helmfile/releases/download/v${HELMFILE_VER}/helmfile_linux_amd64 \
     && mv helmfile_linux_amd64 /usr/local/bin/helmfile \
     && chmod  a+x /usr/local/bin/helmfile 
+
+RUN set -x \
+    && helm plugin install ${HELM_SECRETS_PLUGIN} \
+    && helm plugin install ${HELM_DIFF_PLUGIN}
 
 WORKDIR /work 
 
